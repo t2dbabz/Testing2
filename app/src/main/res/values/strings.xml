@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">Tic Tac Toe</string>
+    <string name="button">Play Again</string>
+    <string name="total_wins_for_o">Total wins for O: </string>
+    <string name="reset">Reset Game</string>
+    <string name="total_wins_for_x">Total wins for X: </string>
+    <string name="two_players">Two Players</string>
+    <string name="vs_computer">Vs. Computer</string>
+    <string name="play_game">Play Game</string>
+    <string name="o">O</string>
+    <string name="x">X</string>
+    <string name="_5_x_5">5 x 5</string>
+    <string name="_0">0</string>
+    <string name="_3_x_3">3 x 3</string>
+    <string name="choose">Choose:</string>
+    <string name="Home">Home</string>
+</resources>
