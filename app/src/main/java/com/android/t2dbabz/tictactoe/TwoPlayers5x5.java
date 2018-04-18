@@ -53,7 +53,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
         setContentView(R.layout.board_5x5);
 
         //Casting and referencing views by their Ids
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         playAgain(findViewById(R.id.tableLayout));
 
 
@@ -69,7 +69,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
             }
         }
         //Button set for new game
-        Button c = (Button) findViewById(R.id.playAgain);
+        Button c = findViewById(R.id.playAgain);
         c.setOnClickListener(new View.OnClickListener() {
             public void onClick(View n) {
                 playAgain(n);
@@ -77,7 +77,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
 
         });
 
-        Button three = (Button) findViewById(R.id.three);
+        Button three = findViewById(R.id.three);
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -85,11 +85,11 @@ public class TwoPlayers5x5 extends AppCompatActivity {
             }
         });
 
-        Button five = (Button) findViewById(R.id.five);
+        Button five = findViewById(R.id.five);
         five.setEnabled(false);
 
         //choose X
-        setX = (Button) findViewById(R.id.setX);
+        setX = findViewById(R.id.setX);
         setX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +107,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
         });
 
         //choose O
-        setO = (Button) findViewById(R.id.setO);
+        setO = findViewById(R.id.setO);
         setO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -176,7 +176,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
 
     //Resets the game board and not the score board
     private void resetButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow Re = (TableRow) T.getChildAt(y);
@@ -198,8 +198,8 @@ public class TwoPlayers5x5 extends AppCompatActivity {
     //Updates the score board
     private void declareWinner() {
 
-        TextView scoreXTextX = (TextView) findViewById(R.id.xResult);
-        TextView scoreXTextO = (TextView) findViewById(R.id.oResult);
+        TextView scoreXTextX = findViewById(R.id.xResult);
+        TextView scoreXTextO = findViewById(R.id.oResult);
 
         //checking for X
         //diagonal '\'
@@ -389,7 +389,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
 
 
     private void disableAllButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow R = (TableRow) T.getChildAt(y);
@@ -404,7 +404,7 @@ public class TwoPlayers5x5 extends AppCompatActivity {
     }
 
     private void enableAllButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow R = (TableRow) T.getChildAt(y);
