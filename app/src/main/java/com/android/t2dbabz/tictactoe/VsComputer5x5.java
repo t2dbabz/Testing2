@@ -22,10 +22,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -34,18 +31,15 @@ import android.widget.Toast;
 
 public class VsComputer5x5 extends AppCompatActivity {
 
+    int count = 0;
+    int winc = 0;
+    int scoreX = 0;
+    int scoreO = 0;
+    String first = "";
+    String second = "";
     //Declaring the variables as class variables(fields)
     private boolean turn = false;
     private char table[][] = new char[5][5];
-    int count = 0;
-    int winc = 0;
-
-    int scoreX = 0;
-    int scoreO = 0;
-
-    String first = "";
-    String second = "";
-
     private Button setX;
     private Button setO;
 
@@ -60,7 +54,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         //Casting and referencing views by their Ids
 
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         playAgain(findViewById(R.id.tableLayout));
 
         for (int y = 0; y < T.getChildCount(); y++) {
@@ -73,7 +67,7 @@ public class VsComputer5x5 extends AppCompatActivity {
             }
         }
         //Button set for new game
-        Button c = (Button) findViewById(R.id.playAgain);
+        Button c = findViewById(R.id.playAgain);
         c.setOnClickListener(new View.OnClickListener() {
             public void onClick(View n) {
                 playAgain(n);
@@ -83,7 +77,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
 
         //Links to the VsComputer Activity
-        Button three = (Button) findViewById(R.id.three);
+        Button three = findViewById(R.id.three);
         three.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,13 +85,13 @@ public class VsComputer5x5 extends AppCompatActivity {
             }
         });
         //Button disabled
-        Button five = (Button) findViewById(R.id.five);
+        Button five = findViewById(R.id.five);
         five.setEnabled(false);
 
 
         //select X to play with
         //Computer play with O
-        setX = (Button) findViewById(R.id.setX);
+        setX = findViewById(R.id.setX);
         setX.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +111,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         //select O to play with
         //Computer play with X
-        setO = (Button) findViewById(R.id.setO);
+        setO = findViewById(R.id.setO);
         setO.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,49 +130,6 @@ public class VsComputer5x5 extends AppCompatActivity {
 
     }
 
-
-    //
-    private class playGame implements View.OnClickListener {
-
-
-        private int x = 0;
-        private int y = 0;
-
-        playGame(int x, int y) {
-            this.x = x;
-            this.y = y;
-        }
-
-        //Coordinating how computer plays
-        @Override
-        public void onClick(View view) {
-            if (view instanceof Button) {
-                Button B = (Button) view;
-                table[x][y] = firstC;
-                B.setText(first);
-                B.setEnabled(false);
-                turn = !turn;
-                count++;
-                if (count == 1) {
-                    firstMove();
-                }
-
-                if (count >= 3) {
-                    playCon();
-                }if (count>= 7){
-                    playCon();
-                    tryForWin();
-                }if(count >=10){
-                    playCon();
-                    tryForWin();
-                    declareWinner();
-                }
-            }
-
-        }
-    }
-
-
     //new game
     public void playAgain(View view) {
         count = 0;
@@ -189,7 +140,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
     //reset the buttons
     private void resetButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow Re = (TableRow) T.getChildAt(y);
@@ -211,12 +162,12 @@ public class VsComputer5x5 extends AppCompatActivity {
     //firstMove the computer is to make
     public void firstMove() {
         if (table[2][2] != firstC) {
-            Button B = (Button) findViewById(R.id.b1);
+            Button B = findViewById(R.id.b1);
             B.setText(second);
             count++;
             table[1][1] = secondC;
         } else {
-            Button B = (Button) findViewById(R.id.b2);
+            Button B = findViewById(R.id.b2);
             B.setText(second);
             table[1][1] = secondC;
 
@@ -233,7 +184,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[4][0] == firstC) {
             if ((table[4][3] == firstC) && (table[0][4] != firstC && table[0][4] != secondC)) {
-                B = (Button) findViewById(R.id.a5);
+                B = findViewById(R.id.a5);
                 B.setText(second);
                 table[0][4] = secondC;
                 turn = !turn;
@@ -244,7 +195,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][0] == firstC) {
             if ((table[4][2] == firstC) && (table[3][0] != firstC && table[3][0] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[3][0] = secondC;
                 turn = !turn;
@@ -256,7 +207,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         if (table[4][2] == firstC) {
             if ((table[3][0] == firstC) && (table[4][0] != firstC && table[4][0] != secondC)) {
-                B = (Button) findViewById(R.id.e1);
+                B = findViewById(R.id.e1);
                 B.setText(second);
                 table[4][0] = secondC;
                 turn = !turn;
@@ -267,7 +218,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][0] == firstC) {
             if ((table[4][0] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[4][2] = secondC;
                 turn = !turn;
@@ -279,7 +230,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         if (table[2][2] == firstC) {
             if ((table[3][4] == firstC) && (table[4][4] != firstC && table[4][4] != secondC)) {
-                B = (Button) findViewById(R.id.e5);
+                B = findViewById(R.id.e5);
                 B.setText(second);
                 table[4][4] = secondC;
                 turn = !turn;
@@ -290,7 +241,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][0] == firstC) {
             if ((table[1][1] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -302,7 +253,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //x-x
         if (table[0][0] == firstC) {
             if ((table[2][2] == firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 count++;
@@ -312,7 +263,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][4] == firstC) {
             if ((table[2][2] == firstC) && (table[3][3] != firstC && table[3][3] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[3][3] = secondC;
                 count++;
@@ -322,7 +273,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][3] == firstC) {
             if ((table[2][2] == firstC) && (table[4][4] != firstC && table[4][4] != secondC)) {
-                B = (Button) findViewById(R.id.e5);
+                B = findViewById(R.id.e5);
                 B.setText(second);
                 table[4][4] = secondC;
                 count++;
@@ -332,7 +283,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == firstC) {
             if ((table[3][2] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[4][2] = secondC;
                 count++;
@@ -342,7 +293,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[2][2] == firstC) && (table[3][2] != firstC && table[3][2] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[3][2] = secondC;
                 count++;
@@ -352,7 +303,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[3][2] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[2][2] = secondC;
                 count++;
@@ -362,7 +313,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][3] == firstC) {
             if ((table[1][3] == firstC) && (table[2][3] != firstC && table[2][3] != secondC)) {
-                B = (Button) findViewById(R.id.c4);
+                B = findViewById(R.id.c4);
                 B.setText(second);
                 table[2][3] = secondC;
                 count++;
@@ -372,7 +323,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][3] == firstC) {
             if ((table[2][3] == firstC) && (table[0][3] != firstC && table[0][3] != secondC)) {
-                B = (Button) findViewById(R.id.a4);
+                B = findViewById(R.id.a4);
                 B.setText(second);
                 table[0][3] = secondC;
                 count++;
@@ -382,7 +333,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][3] == firstC) {
             if ((table[0][3] == firstC) && (table[2][3] != firstC && table[2][3] != secondC)) {
-                B = (Button) findViewById(R.id.c4);
+                B = findViewById(R.id.c4);
                 B.setText(second);
                 table[2][3] = secondC;
                 count++;
@@ -392,7 +343,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][4] == firstC) {
             if ((table[1][4] == firstC) && (table[2][4] != firstC && table[2][4] != secondC)) {
-                B = (Button) findViewById(R.id.c4);
+                B = findViewById(R.id.c4);
                 B.setText(second);
                 table[2][4] = secondC;
                 count++;
@@ -402,7 +353,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][4] == firstC) {
             if ((table[2][4] == firstC) && (table[0][4] != firstC && table[0][4] != secondC)) {
-                B = (Button) findViewById(R.id.a4);
+                B = findViewById(R.id.a4);
                 B.setText(second);
                 table[0][4] = secondC;
                 count++;
@@ -412,7 +363,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][4] == firstC) {
             if ((table[0][4] == firstC) && (table[2][4] != firstC && table[2][4] != secondC)) {
-                B = (Button) findViewById(R.id.c4);
+                B = findViewById(R.id.c4);
                 B.setText(second);
                 table[2][4] = secondC;
                 count++;
@@ -422,7 +373,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == firstC) {
             if ((table[3][0] == firstC) && (table[4][0] != firstC && table[4][0] != secondC)) {
-                B = (Button) findViewById(R.id.e1);
+                B = findViewById(R.id.e1);
                 B.setText(second);
                 table[4][0] = secondC;
                 count++;
@@ -432,7 +383,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][0] == firstC) {
             if ((table[2][0] == firstC) && (table[3][0] != firstC && table[3][0] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[3][0] = secondC;
                 count++;
@@ -442,7 +393,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][0] == firstC) {
             if ((table[4][0] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[2][0] = secondC;
                 count++;
@@ -452,7 +403,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][1] == firstC) {
             if ((table[3][1] == firstC) && (table[4][1] != firstC && table[4][1] != secondC)) {
-                B = (Button) findViewById(R.id.e1);
+                B = findViewById(R.id.e1);
                 B.setText(second);
                 table[4][1] = secondC;
                 count++;
@@ -462,7 +413,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][1] == firstC) {
             if ((table[2][1] == firstC) && (table[3][1] != firstC && table[3][1] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[3][1] = secondC;
                 count++;
@@ -472,7 +423,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][1] == firstC) {
             if ((table[4][1] == firstC) && (table[2][1] != firstC && table[2][1] != secondC)) {
-                B = (Button) findViewById(R.id.c2);
+                B = findViewById(R.id.c2);
                 B.setText(second);
                 table[2][1] = secondC;
                 count++;
@@ -482,7 +433,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == firstC) {
             if ((table[3][2] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[4][2] = secondC;
                 count++;
@@ -492,7 +443,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[2][2] == firstC) && (table[3][2] != firstC && table[3][2] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[3][2] = secondC;
                 count++;
@@ -502,7 +453,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][2] == firstC) {
             if ((table[4][2] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 count++;
@@ -512,7 +463,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][3] == firstC) {
             if ((table[3][3] == firstC) && (table[4][3] != firstC && table[4][3] != secondC)) {
-                B = (Button) findViewById(R.id.e4);
+                B = findViewById(R.id.e4);
                 B.setText(second);
                 table[4][3] = secondC;
                 count++;
@@ -522,7 +473,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][3] == firstC) {
             if ((table[2][3] == firstC) && (table[3][3] != firstC && table[3][3] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[3][3] = secondC;
                 count++;
@@ -532,7 +483,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][3] == firstC) {
             if ((table[4][3] == firstC) && (table[2][3] != firstC && table[2][3] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[2][3] = secondC;
                 count++;
@@ -542,7 +493,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][4] == firstC) {
             if ((table[3][4] == firstC) && (table[4][4] != firstC && table[4][4] != secondC)) {
-                B = (Button) findViewById(R.id.e5);
+                B = findViewById(R.id.e5);
                 B.setText(second);
                 table[4][4] = secondC;
                 count++;
@@ -552,7 +503,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][4] == firstC) {
             if ((table[2][4] == firstC) && (table[3][4] != firstC && table[3][4] != secondC)) {
-                B = (Button) findViewById(R.id.d5);
+                B = findViewById(R.id.d5);
                 B.setText(second);
                 table[3][4] = secondC;
                 count++;
@@ -562,7 +513,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][4] == firstC) {
             if ((table[4][4] == firstC) && (table[2][4] != firstC && table[2][4] != secondC)) {
-                B = (Button) findViewById(R.id.c5);
+                B = findViewById(R.id.c5);
                 B.setText(second);
                 table[2][4] = secondC;
                 count++;
@@ -572,7 +523,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][0] == firstC) {
             if ((table[3][1] == firstC) && (table[3][2] != firstC && table[3][2] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[3][2] = secondC;
                 count++;
@@ -582,7 +533,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][2] == firstC) {
             if ((table[3][0] == firstC) && (table[3][1] != firstC && table[3][1] != secondC)) {
-                B = (Button) findViewById(R.id.d2);
+                B = findViewById(R.id.d2);
                 B.setText(second);
                 table[3][1] = secondC;
                 count++;
@@ -592,7 +543,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][1] == firstC) {
             if ((table[3][2] == firstC) && (table[3][0] != firstC && table[3][0] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[3][0] = secondC;
                 count++;
@@ -602,7 +553,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][0] == firstC) {
             if ((table[4][1] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[4][2] = secondC;
                 count++;
@@ -612,7 +563,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[4][0] == firstC) && (table[4][1] != firstC && table[4][1] != secondC)) {
-                B = (Button) findViewById(R.id.d2);
+                B = findViewById(R.id.d2);
                 B.setText(second);
                 table[4][1] = secondC;
                 count++;
@@ -622,7 +573,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][1] == firstC) {
             if ((table[4][2] == firstC) && (table[4][0] != firstC && table[4][0] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[4][0] = secondC;
                 count++;
@@ -632,7 +583,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == firstC) {
             if ((table[2][3] == firstC) && (table[2][4] != firstC && table[2][4] != secondC)) {
-                B = (Button) findViewById(R.id.c5);
+                B = findViewById(R.id.c5);
                 B.setText(second);
                 table[2][4] = secondC;
                 count++;
@@ -642,7 +593,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][4] == firstC) {
             if ((table[2][2] == firstC) && (table[2][3] != firstC && table[2][3] != secondC)) {
-                B = (Button) findViewById(R.id.c4);
+                B = findViewById(R.id.c4);
                 B.setText(second);
                 table[2][3] = secondC;
                 count++;
@@ -652,7 +603,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][3] == firstC) {
             if ((table[2][4] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 count++;
@@ -662,7 +613,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][3] == firstC) {
             if ((table[3][2] == firstC) && (table[3][4] != firstC && table[3][4] != secondC)) {
-                B = (Button) findViewById(R.id.d5);
+                B = findViewById(R.id.d5);
                 B.setText(second);
                 table[3][4] = secondC;
                 count++;
@@ -672,7 +623,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][4] == firstC) {
             if ((table[3][3] == firstC) && (table[3][2] != firstC && table[3][2] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[3][2] = secondC;
                 count++;
@@ -682,7 +633,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][2] == firstC) {
             if ((table[3][4] == firstC) && (table[3][3] != firstC && table[3][3] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[3][3] = secondC;
                 count++;
@@ -692,7 +643,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][3] == firstC) {
             if ((table[4][2] == firstC) && (table[4][4] != firstC && table[4][4] != secondC)) {
-                B = (Button) findViewById(R.id.e5);
+                B = findViewById(R.id.e5);
                 B.setText(second);
                 table[4][4] = secondC;
                 count++;
@@ -702,7 +653,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][4] == firstC) {
             if ((table[4][3] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[4][2] = secondC;
                 count++;
@@ -712,7 +663,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[4][4] == firstC) && (table[4][3] != firstC && table[4][3] != secondC)) {
-                B = (Button) findViewById(R.id.e4);
+                B = findViewById(R.id.e4);
                 B.setText(second);
                 table[4][3] = secondC;
                 count++;
@@ -722,7 +673,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][0] == firstC) {
             if ((table[1][0] == firstC) && (table[2][0] == firstC) && (table[3][0] != firstC && table[3][0] != secondC)) {
-                B = (Button) findViewById(R.id.d1);
+                B = findViewById(R.id.d1);
                 B.setText(second);
                 table[3][0] = secondC;
                 count++;
@@ -732,7 +683,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][0] == firstC) {
             if ((table[2][0] == firstC) && (table[3][0] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 count++;
@@ -742,7 +693,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == firstC) {
             if ((table[3][0] == firstC) && (table[0][0] == firstC) && (table[1][0] != firstC && table[1][0] != secondC)) {
-                B = (Button) findViewById(R.id.b1);
+                B = findViewById(R.id.b1);
                 B.setText(second);
                 table[1][0] = secondC;
                 count++;
@@ -753,7 +704,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         if (table[3][0] == firstC) {
             if ((table[0][0] == firstC) && (table[1][0] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[2][0] = secondC;
                 count++;
@@ -765,7 +716,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         if (table[4][4] == firstC) {
             if ((table[3][3] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[3][3] = secondC;
                 count++;
@@ -777,7 +728,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //x-x
         if (table[4][4] == firstC) {
             if ((table[2][2] == firstC) && (table[3][3] != firstC && table[3][3] != secondC)) {
-                B = (Button) findViewById(R.id.d4);
+                B = findViewById(R.id.d4);
                 B.setText(second);
                 table[3][3] = secondC;
                 turn = !turn;
@@ -788,7 +739,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][2] == firstC) {
             if ((table[2][2] == firstC) && (table[4][3] != firstC && table[4][3] != secondC)) {
-                B = (Button) findViewById(R.id.e4);
+                B = findViewById(R.id.e4);
                 B.setText(second);
                 table[4][3] = secondC;
                 count++;
@@ -798,7 +749,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == firstC) {
             if ((table[4][3] == firstC) && (table[1][2] != firstC && table[1][2] != secondC)) {
-                B = (Button) findViewById(R.id.b3);
+                B = findViewById(R.id.b3);
                 B.setText(second);
                 table[1][2] = secondC;
                 count++;
@@ -808,7 +759,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][3] == firstC) {
             if ((table[1][2] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 count++;
@@ -819,7 +770,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
         if (table[2][0] == firstC) {
             if ((table[3][1] == firstC) && (table[4][2] != firstC && table[4][2] != secondC)) {
-                B = (Button) findViewById(R.id.e3);
+                B = findViewById(R.id.e3);
                 B.setText(second);
                 table[4][2] = secondC;
                 count++;
@@ -829,7 +780,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[3][1] == firstC) {
             if ((table[4][2] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[2][0] = secondC;
                 count++;
@@ -839,7 +790,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][2] == firstC) {
             if ((table[2][0] == firstC) && (table[3][1] != firstC && table[3][1] != secondC)) {
-                B = (Button) findViewById(R.id.d2);
+                B = findViewById(R.id.d2);
                 B.setText(second);
                 table[3][1] = secondC;
                 count++;
@@ -849,7 +800,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][2] == firstC) {
             if ((table[2][2] == firstC) && (table[4][3] != firstC && table[4][3] != secondC)) {
-                B = (Button) findViewById(R.id.e4);
+                B = findViewById(R.id.e4);
                 B.setText(second);
                 table[4][3] = secondC;
                 count++;
@@ -860,7 +811,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //-xx
         if (table[1][1] == firstC) {
             if ((table[2][2] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -872,7 +823,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //-xx
         if (table[3][3] == firstC) {
             if ((table[4][4] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -885,7 +836,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //xx-
         if (table[3][0] == firstC) {
             if ((table[3][1] == firstC) && (table[3][2] != firstC && table[3][2] != secondC)) {
-                B = (Button) findViewById(R.id.d3);
+                B = findViewById(R.id.d3);
                 B.setText(second);
                 table[3][2] = secondC;
                 turn = !turn;
@@ -897,7 +848,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //xx-
         if (table[2][0] == firstC) {
             if ((table[1][1] == firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -909,7 +860,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //x-x
         if (table[2][0] == firstC) {
             if ((table[0][2] == firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 turn = !turn;
@@ -920,7 +871,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == firstC) {
             if ((table[0][2] == firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 turn = !turn;
@@ -932,7 +883,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //-xx
         if (table[0][2] == firstC) {
             if ((table[1][1] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -945,7 +896,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 //        //condition1 xx-
         if (table[0][0] == firstC) {
             if ((table[1][0] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -958,7 +909,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //condition1 x-x
         if (table[0][0] == firstC) {
             if ((table[2][0] == firstC) && (table[1][0] != firstC && table[1][0] != secondC)) {
-                B = (Button) findViewById(R.id.a2);
+                B = findViewById(R.id.a2);
                 B.setText(second);
                 table[1][0] = secondC;
                 turn = !turn;
@@ -970,7 +921,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //condition1 -xx
         if (table[2][0] == firstC) {
             if ((table[1][0] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -981,7 +932,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == firstC) {
             if ((table[1][0] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -994,7 +945,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[0][1] == firstC) {
             if ((table[1][1] == firstC) && (table[2][1] != firstC && table[2][1] != secondC)) {
-                B = (Button) findViewById(R.id.b3);
+                B = findViewById(R.id.b3);
                 B.setText(second);
                 table[2][1] = secondC;
                 turn = !turn;
@@ -1006,7 +957,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //x-x
         if (table[0][1] == firstC) {
             if ((table[2][1] == firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 turn = !turn;
@@ -1018,7 +969,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //-xx
         if (table[2][1] == firstC) {
             if ((table[1][1] == firstC) && (table[0][1] != firstC && table[0][1] != secondC)) {
-                B = (Button) findViewById(R.id.b1);
+                B = findViewById(R.id.b1);
                 B.setText(second);
                 table[0][1] = secondC;
                 turn = !turn;
@@ -1031,7 +982,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[0][2] == firstC) {
             if ((table[1][2] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -1043,7 +994,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //x-x
         if (table[0][2] == firstC) {
             if ((table[2][2] == firstC) && (table[1][2] != firstC && table[1][2] != secondC)) {
-                B = (Button) findViewById(R.id.c2);
+                B = findViewById(R.id.c2);
                 B.setText(second);
                 table[1][2] = secondC;
                 turn = !turn;
@@ -1055,7 +1006,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //-xx
         if (table[2][2] == firstC) {
             if ((table[1][2] == firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -1068,7 +1019,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[0][0] == firstC) {
             if ((table[0][1] == firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -1080,7 +1031,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //x-x
         if (table[0][0] == firstC) {
             if ((table[0][2] == firstC) && (table[0][1] != firstC && table[0][1] != secondC)) {
-                B = (Button) findViewById(R.id.b1);
+                B = findViewById(R.id.b1);
                 B.setText(second);
                 table[0][1] = secondC;
                 turn = !turn;
@@ -1092,7 +1043,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //-xx
         if (table[0][2] == firstC) {
             if ((table[0][1] == firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1105,7 +1056,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[1][0] == firstC) {
             if ((table[1][1] == firstC) && (table[1][2] != firstC && table[1][2] != secondC)) {
-                B = (Button) findViewById(R.id.c2);
+                B = findViewById(R.id.c2);
                 B.setText(second);
                 table[1][2] = secondC;
                 turn = !turn;
@@ -1117,7 +1068,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //x-x
         if (table[1][0] == firstC) {
             if ((table[1][2] == firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 turn = !turn;
@@ -1129,7 +1080,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //-xx
         if (table[1][2] == firstC) {
             if ((table[1][1] == firstC) && (table[1][0] != firstC && table[1][0] != secondC)) {
-                B = (Button) findViewById(R.id.a2);
+                B = findViewById(R.id.a2);
                 B.setText(second);
                 table[1][0] = secondC;
                 turn = !turn;
@@ -1142,7 +1093,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //xx-
         if (table[2][0] == firstC) {
             if ((table[2][1] == firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -1154,7 +1105,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //x-x
         if (table[2][0] == firstC) {
             if ((table[2][2] == firstC) && (table[2][1] != firstC && table[2][1] != secondC)) {
-                B = (Button) findViewById(R.id.b3);
+                B = findViewById(R.id.b3);
                 B.setText(second);
                 table[2][1] = secondC;
                 turn = !turn;
@@ -1166,7 +1117,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //-xx
         if (table[2][2] == firstC) {
             if ((table[2][1] == firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -1178,7 +1129,6 @@ public class VsComputer5x5 extends AppCompatActivity {
 
     }
 
-
     //Computer should look whether there is a win
     private void tryForWin() {
         Button B;
@@ -1186,7 +1136,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //diagonal /
         if (table[0][0] == secondC) {
             if ((table[1][1] != secondC && table[1][1] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -1197,7 +1147,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][0] == secondC) {
             if ((table[1][0] != secondC && table[1][0] != firstC) && (table[3][0] != secondC && table[3][0] != firstC) && (table[4][0] != secondC && table[4][0] != firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -1208,7 +1158,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][0] == secondC) {
             if ((table[0][1] != secondC && table[0][1] != firstC) && (table[0][3] != secondC && table[0][3] != firstC) && (table[0][4] != secondC && table[0][4] != firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -1220,7 +1170,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //22
         if (table[2][2] == secondC) {
             if ((table[0][0] != secondC && table[0][0] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[1][1] != firstC && table[1][1] != secondC)) {
-                B = (Button) findViewById(R.id.b2);
+                B = findViewById(R.id.b2);
                 B.setText(second);
                 table[1][1] = secondC;
                 turn = !turn;
@@ -1231,7 +1181,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == secondC) {
             if ((table[1][2] != secondC && table[1][2] != firstC) && (table[3][2] != secondC && table[3][2] != firstC) && (table[4][2] != secondC && table[4][2] != firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -1242,7 +1192,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][2] == secondC) {
             if ((table[2][1] != secondC && table[2][1] != firstC) && (table[2][3] != secondC && table[2][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -1256,7 +1206,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //11
         if (table[1][1] == secondC) {
             if ((table[2][2] != secondC && table[2][2] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1267,7 +1217,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][1] == secondC) {
             if ((table[0][0] != secondC && table[0][0] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[2][2] != secondC && table[2][2] != firstC) && (table[4][4] != firstC && table[4][4] != secondC)) {
-                B = (Button) findViewById(R.id.a3);
+                B = findViewById(R.id.a3);
                 B.setText(second);
                 table[4][4] = secondC;
                 turn = !turn;
@@ -1278,7 +1228,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[4][0] == secondC) {
             if ((table[3][1] != secondC && table[3][1] != firstC) && (table[2][2] != secondC && table[2][2] != firstC) && (table[1][3] != secondC && table[1][3] != firstC) && (table[0][4] != firstC && table[0][4] != secondC)) {
-                B = (Button) findViewById(R.id.a5);
+                B = findViewById(R.id.a5);
                 B.setText(second);
                 table[0][4] = secondC;
                 turn = !turn;
@@ -1289,7 +1239,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][1] == secondC) {
             if ((table[1][2] != secondC && table[1][2] != secondC) && (table[1][3] != secondC && table[1][3] != firstC) && (table[1][4] != secondC && table[1][4] != firstC) && (table[1][0] != firstC && table[1][0] != secondC)) {
-                B = (Button) findViewById(R.id.b1);
+                B = findViewById(R.id.b1);
                 B.setText(second);
                 table[1][0] = secondC;
                 turn = !turn;
@@ -1301,7 +1251,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //20
         if (table[4][0] == secondC) {
             if ((table[1][3] != secondC && table[1][3] != firstC) && (table[2][2] != secondC && table[2][2] != firstC) && (table[3][1] != secondC && table[3][1] != firstC) && (table[0][4] != firstC && table[0][4] != secondC)) {
-                B = (Button) findViewById(R.id.a5);
+                B = findViewById(R.id.a5);
                 B.setText(second);
                 table[0][4] = secondC;
                 turn = !turn;
@@ -1312,7 +1262,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == secondC) {
             if ((table[1][0] != secondC && table[1][0] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1323,7 +1273,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][0] == secondC) {
             if ((table[2][1] != secondC && table[2][1] != firstC) && (table[2][3] != secondC && table[2][3] != firstC) && (table[2][4] != secondC && table[2][4] != firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -1335,7 +1285,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //02
         if (table[0][4] == secondC) {
             if ((table[3][1] != secondC && table[3][1] != firstC) && (table[2][2] != secondC && table[2][2] != firstC) && (table[1][3] != secondC && table[1][43] != firstC) && (table[4][0] != firstC && table[4][0] != secondC)) {
-                B = (Button) findViewById(R.id.e1);
+                B = findViewById(R.id.e1);
                 B.setText(second);
                 table[4][0] = secondC;
                 turn = !turn;
@@ -1346,7 +1296,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][2] == secondC) {
             if ((table[1][2] != secondC && table[1][2] != firstC) && (table[3][2] != secondC && table[3][2] != firstC) && (table[4][2] != secondC && table[4][2] != firstC) && (table[2][2] != firstC && table[2][2] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][2] = secondC;
                 turn = !turn;
@@ -1357,7 +1307,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][2] == secondC) {
             if ((table[0][1] != secondC && table[0][1] != firstC) && (table[0][3] != secondC && table[0][3] != firstC) && (table[0][4] != secondC && table[0][4] != firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1369,7 +1319,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //10
         if (table[1][0] == secondC) {
             if ((table[2][0] != secondC && table[2][0] != firstC) && (table[3][3] != secondC && table[3][3] != firstC) && (table[4][4] != secondC && table[4][4] != firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1380,7 +1330,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][0] == secondC) {
             if ((table[1][1] != secondC && table[1][1] != firstC) && (table[1][3] != secondC && table[1][3] != firstC) && (table[1][4] != secondC && table[1][4] != firstC) && (table[1][2] != firstC && table[1][2] != secondC)) {
-                B = (Button) findViewById(R.id.b3);
+                B = findViewById(R.id.b3);
                 B.setText(second);
                 table[1][2] = secondC;
                 turn = !turn;
@@ -1392,7 +1342,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //01
         if (table[0][1] == secondC) {
             if ((table[1][1] != secondC && table[1][1] != firstC) && (table[3][1] != secondC && table[3][1] != firstC) && (table[4][1] != secondC && table[4][1] != firstC) && (table[2][1] != firstC && table[2][1] != secondC)) {
-                B = (Button) findViewById(R.id.c2);
+                B = findViewById(R.id.c2);
                 B.setText(second);
                 table[2][1] = secondC;
                 turn = !turn;
@@ -1403,7 +1353,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[0][1] == secondC) {
             if ((table[0][2] != secondC && table[0][2] != firstC) && (table[0][3] != secondC && table[0][3] != firstC) && (table[0][4] != secondC && table[0][4] != firstC) && (table[0][0] != firstC && table[0][0] != secondC)) {
-                B = (Button) findViewById(R.id.a1);
+                B = findViewById(R.id.a1);
                 B.setText(second);
                 table[0][0] = secondC;
                 turn = !turn;
@@ -1415,7 +1365,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //21
         if (table[2][1] == secondC) {
             if ((table[1][1] != secondC && table[1][1] != firstC) && (table[3][1] != secondC && table[3][1] != firstC) && (table[4][1] != secondC && table[4][1] != firstC) && (table[0][1] != firstC && table[0][1] != secondC)) {
-                B = (Button) findViewById(R.id.b1);
+                B = findViewById(R.id.b1);
                 B.setText(second);
                 table[0][1] = secondC;
                 turn = !turn;
@@ -1426,7 +1376,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[2][1] == secondC) {
             if ((table[2][2] != secondC && table[2][2] != firstC) && (table[2][3] != secondC && table[2][3] != firstC) && (table[2][4] != secondC && table[2][4] != firstC) && (table[2][0] != firstC && table[2][0] != secondC)) {
-                B = (Button) findViewById(R.id.c3);
+                B = findViewById(R.id.c3);
                 B.setText(second);
                 table[2][0] = secondC;
                 turn = !turn;
@@ -1438,7 +1388,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         //12
         if (table[1][2] == secondC) {
             if ((table[2][2] != secondC && table[2][2] != firstC) && (table[3][2] != secondC && table[3][2] != firstC) && (table[4][2] != secondC && table[4][2] != firstC) && (table[0][2] != firstC && table[0][2] != secondC)) {
-                B = (Button) findViewById(R.id.c1);
+                B = findViewById(R.id.c1);
                 B.setText(second);
                 table[0][2] = secondC;
                 turn = !turn;
@@ -1449,7 +1399,7 @@ public class VsComputer5x5 extends AppCompatActivity {
         }
         if (table[1][2] == secondC) {
             if ((table[1][1] != secondC && table[1][1] != firstC) && (table[1][3] != secondC && table[1][3] != firstC) && (table[1][4] != secondC && table[1][4] != firstC) && (table[1][0] != firstC && table[1][0] != secondC)) {
-                B = (Button) findViewById(R.id.a2);
+                B = findViewById(R.id.a2);
                 B.setText(second);
                 table[1][0] = secondC;
                 turn = !turn;
@@ -1465,8 +1415,8 @@ public class VsComputer5x5 extends AppCompatActivity {
     //Add 1 to the score of the winner
     private void declareWinner() {
 
-        TextView scoreXTextX = (TextView) findViewById(R.id.xResult);
-        TextView scoreXTextO = (TextView) findViewById(R.id.oResult);
+        TextView scoreXTextX = findViewById(R.id.xResult);
+        TextView scoreXTextO = findViewById(R.id.oResult);
 
         //checking for X
         //diagonal '\'
@@ -1678,10 +1628,9 @@ public class VsComputer5x5 extends AppCompatActivity {
 
     }
 
-
     //disable the buttons when there is a win
     private void disableAllButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow R = (TableRow) T.getChildAt(y);
@@ -1697,7 +1646,7 @@ public class VsComputer5x5 extends AppCompatActivity {
 
     //enable the buttons when there is a win
     private void enableAllButtons() {
-        TableLayout T = (TableLayout) findViewById(R.id.tableLayout);
+        TableLayout T = findViewById(R.id.tableLayout);
         for (int y = 0; y < T.getChildCount(); y++) {
             if (T.getChildAt(y) instanceof TableRow) {
                 TableRow R = (TableRow) T.getChildAt(y);
@@ -1710,17 +1659,58 @@ public class VsComputer5x5 extends AppCompatActivity {
             }
         }
     }
-    //resets the game and including the scoreboard
 
     public void reset(View view) {
         onRestart();
     }
+    //resets the game and including the scoreboard
 
     //restart method called the reset method
     @Override
     protected void onRestart() {
         this.recreate();
         super.onRestart();
+    }
+
+    //
+    private class playGame implements View.OnClickListener {
+
+
+        private int x = 0;
+        private int y = 0;
+
+        playGame(int x, int y) {
+            this.x = x;
+            this.y = y;
+        }
+
+        //Coordinating how computer plays
+        @Override
+        public void onClick(View view) {
+            if (view instanceof Button) {
+                Button B = (Button) view;
+                table[x][y] = firstC;
+                B.setText(first);
+                B.setEnabled(false);
+                turn = !turn;
+                count++;
+                if (count == 1) {
+                    firstMove();
+                }
+
+                if (count >= 3) {
+                    playCon();
+                }if (count>= 7){
+                    playCon();
+                    tryForWin();
+                }if(count >=10){
+                    playCon();
+                    tryForWin();
+                    declareWinner();
+                }
+            }
+
+        }
     }
 
 
